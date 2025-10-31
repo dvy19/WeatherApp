@@ -20,6 +20,12 @@ class WeatherActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var errorTextView: TextView
 
+    private lateinit var windSpeedTextView: TextView
+    private lateinit var humidityTextView:TextView
+    private lateinit var cloudsTextView:TextView
+
+
+
     // Retrofit setup
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.openweathermap.org/")
@@ -49,6 +55,10 @@ class WeatherActivity : AppCompatActivity() {
         fetchButton = findViewById(R.id.fetchButton)
         progressBar = findViewById(R.id.progressBar)
         errorTextView = findViewById(R.id.errorTextView)
+
+        humidityTextView=findViewById<TextView>(R.id.humidityTextview)
+        cloudsTextView=findViewById<TextView>(R.id.cloudsTextView)
+        windSpeedTextView=findViewById<TextView>(R.id.windSpeedTextView)
     }
 
     private fun fetchWeather() {
@@ -88,6 +98,13 @@ class WeatherActivity : AppCompatActivity() {
     private fun displayWeather(weather: WeatherResponse) {
         cityTextView.text = "${weather.name}"
         tempTextView.text = "${weather.main.temp}°C"
+
+
+        windSpeedTextView.text = "${weather.wind.speed} m/s"
+
+        cloudsTextView.text = "${weather.clouds.all}%"
+
+        humidityTextView.text = "${weather.main.humidity}%"
 
         // You can add more fields here like:
         // humidityTextView.text = "Humidity: ${weather.main.humidity}%"
